@@ -1,0 +1,27 @@
+name: Push Event Workflow for React Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  additional_job:
+    name: Additional Job on Push Event
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install additional dependencies
+        run: npm install package-name
+
+      - name: Run additional tests
+        run: npm run test-additional
+
+  another_job:
+    name: Another Job on Push Event
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2

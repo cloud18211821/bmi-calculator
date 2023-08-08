@@ -1,27 +1,21 @@
-name: Push Event Workflow for React Application
+name: Deploy Workflow for React App
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Build Workflow for React App"]
     branches:
       - main
 
 jobs:
-  additional_job:
-    name: Additional Job on Push Event
+  deploy:
+    name: Deploy the React App
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install additional dependencies
-        run: npm install package-name
-
-      - name: Run additional tests
-        run: npm run test-additional
-
-  another_job:
-    name: Another Job on Push Event
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Deploy the React App
+        run: |
+          npm run build
+          npm install -g gh-pages
+          gh-pages -d build
